@@ -1,0 +1,7 @@
+{
+  "name": "Montero Films - El Diamante",
+  "description": "Una plataforma audiovisual cinematográfica y dinámica para la producción de contenidos de alta gama, con integración de IA para la conceptualización creativa.",
+  "requestFramePermissions": [
+    "microphone"
+  ]
+}
