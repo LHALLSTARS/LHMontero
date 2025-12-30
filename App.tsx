@@ -4,6 +4,7 @@ import Navbar from './components/Navbar';
 import Hero from './components/Hero';
 import VideoGrid from './components/VideoGrid';
 import DiamondAssistant from './components/DiamondAssistant';
+import BudgetPopup from './components/BudgetPopup';
 import { ProductionVideo } from './types';
 
 const VIDEOS: ProductionVideo[] = [
@@ -155,6 +156,7 @@ const SERVICES = [
 
 const App: React.FC = () => {
   const [activeVideo, setActiveVideo] = useState<ProductionVideo | null>(null);
+  const [isBudgetPopupOpen, setIsBudgetPopupOpen] = useState(false);
 
   return (
     <div className="min-h-screen bg-black text-white selection:bg-cyan-500 selection:text-black">
@@ -250,6 +252,27 @@ const App: React.FC = () => {
                     <p className="text-sm text-zinc-500">Usa nuestra IA para conectar el factor humano con los detalles técnicos de tu próxima producción.</p>
                   </div>
                   <DiamondAssistant />
+
+                  {/* Budget CTA */}
+                  <div className="mt-6 p-6 glass-panel rounded-2xl border border-cyan-500/20 bg-gradient-to-br from-cyan-950/20 to-transparent">
+                    <div className="flex items-start gap-4">
+                      <div className="w-12 h-12 rounded-full bg-gradient-to-br from-cyan-500/30 to-cyan-900/30 border border-cyan-500/50 flex items-center justify-center flex-shrink-0">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" viewBox="0 0 24 24" stroke="currentColor" className="text-cyan-400">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                        </svg>
+                      </div>
+                      <div className="flex-1">
+                        <h4 className="font-cinzel font-bold text-white mb-1">¿Listo para crear?</h4>
+                        <p className="text-xs text-zinc-500 mb-4">Solicita un presupuesto personalizado para tu proyecto</p>
+                        <button
+                          onClick={() => setIsBudgetPopupOpen(true)}
+                          className="w-full px-6 py-3 bg-gradient-to-r from-cyan-500 to-cyan-600 hover:from-cyan-600 hover:to-cyan-700 text-black font-bold tracking-wider uppercase rounded-lg transition-all duration-300 hover:scale-105 hover:shadow-[0_0_30px_rgba(34,211,238,0.3)] text-sm"
+                        >
+                          Solicitar Presupuesto
+                        </button>
+                      </div>
+                    </div>
+                  </div>
                 </div>
               </div>
 
@@ -290,6 +313,23 @@ const App: React.FC = () => {
           </div>
         </div>
       )}
+
+      {/* Floating Budget Button */}
+      <button
+        onClick={() => setIsBudgetPopupOpen(true)}
+        className="fixed bottom-8 right-8 z-[100] w-16 h-16 rounded-full bg-gradient-to-br from-cyan-500 to-cyan-600 hover:from-cyan-600 hover:to-cyan-700 text-black shadow-[0_0_40px_rgba(34,211,238,0.4)] hover:shadow-[0_0_60px_rgba(34,211,238,0.6)] transition-all duration-300 hover:scale-110 flex items-center justify-center group"
+        aria-label="Solicitar Presupuesto"
+      >
+        <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28" fill="none" viewBox="0 0 24 24" stroke="currentColor" className="group-hover:scale-110 transition-transform">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+        </svg>
+        <span className="absolute -top-2 -right-2 w-6 h-6 bg-red-500 rounded-full flex items-center justify-center text-white text-xs font-bold animate-pulse">
+          !
+        </span>
+      </button>
+
+      {/* Budget Popup Modal */}
+      <BudgetPopup isOpen={isBudgetPopupOpen} onClose={() => setIsBudgetPopupOpen(false)} />
 
       <footer className="py-20 border-t border-zinc-900 bg-black">
         <div className="max-w-7xl mx-auto px-6">
